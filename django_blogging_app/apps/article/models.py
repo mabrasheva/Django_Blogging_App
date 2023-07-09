@@ -22,6 +22,7 @@ class Article(models.Model):
     # author = models.OneToOneField()
     # category
     # tags
+    # slug
 
     class Meta:
         ordering = ['created_on']
