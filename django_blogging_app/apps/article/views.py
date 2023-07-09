@@ -1,4 +1,3 @@
-from django import forms
 from django.urls import reverse_lazy
 from django.views import generic as views
 
@@ -62,5 +61,4 @@ class ArticleDeleteView(DisabledFormFieldsMixin, views.DeleteView):
     model = Article
     template_name = "article/article_delete.html"
     fields = "__all__"
-    # disabled_fields = "__all__"
     success_url = reverse_lazy('article_list')

@@ -3,7 +3,13 @@ from django import forms
 from django_blogging_app.apps.article.models import Article
 
 
-class ArticleCreateForm(forms.ModelForm):
+class ArticleBaseForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = "__all__"
+
+
+class ArticleCreateForm(ArticleBaseForm):
     class Meta:
         model = Article
         fields = "__all__"
