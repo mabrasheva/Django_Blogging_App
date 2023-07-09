@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% for article in object_list %}
+                <div class="col-lg-6 mb-4">
+                    <!-- Blog post-->
+                    {% include 'article/article_card.html' %}
+                </div>
+                {% if forloop.counter|divisibleby:2 and not forloop.last %}
+                    <div class="w-100"></div> <!-- Add a clearfix to start a new row -->
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        {% include 'common/pagination.html' %}
+
+    </div>
+
+{% endblock %}

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Article(models.Model):
@@ -16,5 +17,14 @@ class Article(models.Model):
     updated_on = models.DateTimeField(
         auto_now=True,
     )
+
     # ToDo
     # author = models.OneToOneField()
+    # category
+    # tags
+
+    class Meta:
+        ordering = ['created_on']
+
+    def get_absolute_url(self):
+        return reverse('article_details', args=[str(self.pk)])
