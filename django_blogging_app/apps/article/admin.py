@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from django_blogging_app.apps.article.models import Article
+
+
+@admin.register(Article)
+class ArticleAdmin(admin.ModelAdmin):
+    pass

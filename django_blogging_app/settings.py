@@ -1,3 +1,5 @@
+from django.urls import reverse_lazy
+
 """
 Django settings for django_blogging_app project.
 
@@ -15,7 +17,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -26,7 +27,6 @@ SECRET_KEY = 'django-insecure-5q^cf865=2pn)_=evb@-8d8g%385*ur2g9@ofg3yeyf$#bq*po
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -74,7 +74,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'django_blogging_app.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -114,7 +113,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -126,7 +124,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -137,3 +134,5 @@ STATICFILES_DIRS = (BASE_DIR / 'staticfiles',)
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = reverse_lazy('user_login')

@@ -1,5 +1,6 @@
 from django.urls import reverse_lazy
 from django.views import generic as views
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django_blogging_app.apps.article.forms import ArticleCreateForm
 from django_blogging_app.apps.article.models import Article
@@ -28,7 +29,7 @@ class DisabledFormFieldsMixin:
 # 4. `get_form` - return instance
 
 
-class ArticleCreateView(views.CreateView):
+class ArticleCreateView(LoginRequiredMixin, views.CreateView):
     model = Article
     template_name = "article/article_create.html"
     form_class = ArticleCreateForm
@@ -47,7 +48,7 @@ class ArticleDetailsView(views.DetailView):
     template_name = 'article/article_details.html'
 
 
-class ArticleUpdateView(DisabledFormFieldsMixin, views.UpdateView):
+class ArticleUpdateView(LoginRequiredMixin, DisabledFormFieldsMixin, views.UpdateView):
     model = Article
     template_name = "article/article_edit.html"
     fields = "__all__"
@@ -57,7 +58,7 @@ class ArticleUpdateView(DisabledFormFieldsMixin, views.UpdateView):
         return reverse_lazy('article_details', kwargs={'pk': self.object.pk})
 
 
-class ArticleDeleteView(DisabledFormFieldsMixin, views.DeleteView):
+class ArticleDeleteView(LoginRequiredMixin, DisabledFormFieldsMixin, views.DeleteView):
     model = Article
     template_name = "article/article_delete.html"
     fields = "__all__"
