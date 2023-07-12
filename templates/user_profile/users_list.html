@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+
+            {% for user in object_list %}
+                <div class="col-lg-6 mb-4">
+
+                    <a href="{% url 'user_details' user.pk %}">{{ user }}</a>
+
+                </div>
+            {% endfor %}
+        </div>
+
+        {% include 'common/pagination.html' %}
+
+    </div>
+
+{% endblock %}

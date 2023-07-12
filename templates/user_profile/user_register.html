@@ -1,4 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
 
+    <div class="container">
+
+        <div class="card">
+            <div class="card-body">
+
+                <form action="{% url 'user_register' %}" method="post">
+                    <h2 class="card-title h4">Register</h2>
+                    <p class="card-text">{{ form.as_p }}</p>
+
+                    <button class="btn btn-primary">Create</button>
+                    {% csrf_token %}
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
 {% endblock %}
