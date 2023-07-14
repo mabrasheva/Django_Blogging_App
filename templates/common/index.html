@@ -11,8 +11,11 @@
                         <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg"
                                           alt="..."/></a>
                         <div class="card-body">
-                            <div class="small text-muted">{{ featured_article.created_on }}</div>
                             <h2 class="card-title">{{ featured_article.title }}</h2>
+                            <div class="small text-muted">Published date: {{ featured_article.created_on }}</div>
+                            <div class="small text-muted">Author:
+                                <a href="{% url 'user_details' pk=featured_article.user.pk %}">{{ featured_article.user.username }}</a>
+                                {{ article.user.full_name }}</div>
                             <p class="card-text">{{ featured_article.text|truncatechars:50 }}</p>
                             <a class="btn btn-primary" href="{% url 'article_details' featured_article.pk %}">Read more
                                 →</a>

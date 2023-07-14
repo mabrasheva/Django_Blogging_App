@@ -56,7 +56,7 @@ class ArticleDetailsView(views.DetailView):
 class ArticleUpdateView(LoginRequiredMixin, DisabledFormFieldsMixin, views.UpdateView):
     model = Article
     template_name = "article/article_edit.html"
-    fields = "__all__"
+    fields = ["title", "text"]
 
     # disabled_fields = ("author",)
     def get_success_url(self):
