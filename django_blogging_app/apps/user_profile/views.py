@@ -1,19 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as auth_views, login, get_user_model
-from django.contrib.auth import forms as auth_forms
 from django.urls import reverse_lazy
 from django.views import generic as views
-from django import forms
+
+from django_blogging_app.apps.user_profile.forms import RegisterUserForm
 
 UserModel = get_user_model()
-
-
-class RegisterUserForm(auth_forms.UserCreationForm):
-    consent = forms.BooleanField(
-        label="I accept the Terms and Conditions "
-    )
 
 
 class RegisterUserView(views.CreateView):
@@ -29,7 +22,6 @@ class RegisterUserView(views.CreateView):
 
 class LoginUserView(auth_views.LoginView):
     template_name = 'user_profile/user_login.html'
-    success_url = reverse_lazy('index')
 
 
 class LogoutUserView(auth_views.LogoutView):

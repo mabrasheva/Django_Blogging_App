@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load filters %}
 {% block content %}
 
     <div class="container">
@@ -8,12 +9,20 @@
 
                 <form action="{% url 'user_login' %}" method="post">
                     <h2 class="card-title h4">Login</h2>
-                    <p class="card-text">{{ form.as_p }}</p>
+                    <p class="card-text">{{ form.username|placeholder:"Enter username" }}</p>
+                    <p class="card-text">{{ form.password|placeholder:"Enter password" }}</p>
+
+                    <input type="hidden" value="{{ next }}" name="next"/>
 
                     <button class="btn btn-primary">Login</button>
                     {% csrf_token %}
 
                 </form>
+
+                <p>
+                    Don't have an account?
+                    <a class="btn btn-primary" aria-current="page" href="{% url 'user_register' %}">Register</a>
+                </p>
 
             </div>
         </div>
