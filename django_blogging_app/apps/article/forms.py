@@ -12,7 +12,7 @@ class ArticleBaseForm(forms.ModelForm):
 class ArticleCreateForm(ArticleBaseForm):
     class Meta:
         model = Article
-        fields = "__all__"
+        exclude = ["user"]
         widgets = {
             'title': forms.TextInput(
                 attrs={'placeholder': 'Title', },

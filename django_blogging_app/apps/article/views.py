@@ -35,6 +35,11 @@ class ArticleCreateView(LoginRequiredMixin, views.CreateView):
     form_class = ArticleCreateForm
     success_url = reverse_lazy('index')
 
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+        form.instance.user = self.request.user
+        return form
+
 
 class ArticleListView(views.ListView):
     template_name = 'article/article_list.html'

@@ -42,6 +42,11 @@ class UserDetailsView(LoginRequiredMixin, views.DetailView):
     template_name = "user_profile/user_details.html"
     model = UserModel
 
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context["articles_count"] = self.request.user.article_set.all()
+    #     return context
+
 
 class UserDeleteView(LoginRequiredMixin, views.DeleteView):
     template_name = "user_profile/user_delete.html"
