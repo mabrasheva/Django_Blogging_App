@@ -34,9 +34,14 @@ class ListUsersView(LoginRequiredMixin, views.ListView):
     paginate_by = 20
 
 
-class UserUpdateView(views.View):
-    pass
+class UserUpdateView(LoginRequiredMixin, views.UpdateView):
+    template_name = "user_profile/user_edit.html"
 
 
-class UserDetailsView(views.View):
-    pass
+class UserDetailsView(LoginRequiredMixin, views.DetailView):
+    template_name = "user_profile/user_details.html"
+    model = UserModel
+
+
+class UserDeleteView(LoginRequiredMixin, views.DeleteView):
+    template_name = "user_profile/user_delete.html"
