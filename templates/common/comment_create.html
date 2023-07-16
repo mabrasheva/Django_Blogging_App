@@ -1,0 +1,24 @@
+{% load filters %}
+
+<form method="post" action="{% url 'article_comment' pk=article.pk %}">
+
+    <div class="card rounded">
+        {{ comment_form.comment_text|placeholder:"Add comment..." }}
+    </div>
+
+    <p></p>
+    {% csrf_token %}
+    <button class="btn btn-primary">Add comment</button>
+
+</form>
+
+
+{#<div class="card">#}
+{#  <form method="post" action="{% url 'article_comment' pk=article.pk %}">#}
+{#    {% csrf_token %}#}
+{#    <div class="form-group">#}
+{#      <textarea class="form-control rounded" rows="3" name="comment_text" placeholder="Add comment...">{{ comment_form.comment_text.value }}</textarea>#}
+{#    </div>#}
+{#    <button class="btn btn-primary">Add comment</button>#}
+{#  </form>#}
+{#</div>#}

@@ -26,7 +26,6 @@ class Article(models.Model):
     )
 
     # ToDo
-    # author = models.OneToOneField()
     # category
     # tags
     # slug

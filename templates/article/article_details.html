@@ -4,7 +4,7 @@
 
         <div class="card">
             <div class="card-body">
-                <h2 class="card-title h4">{{ article.title }}</h2>
+                <h2 class="card-title h2">{{ article.title }}</h2>
                 <div class="small text-muted">Published date: {{ article.created_on }}</div>
                 <div class="small text-muted">Author:
                     <a href="{% url 'user_details' pk=article.user.pk %}">{{ article.user.username }}</a>
@@ -14,20 +14,29 @@
         </div>
 
         <p></p>
+        {% include 'common/comment_list.html' %}
+        <p></p>
+        {% include 'common/comment_create.html' %}
+        <p></p>
 
-        <p>
-            <a href="{% url 'article_edit' article.pk %}" class="btn btn-primary">Edit Article</a>
-            <a href="{% url 'article_delete' article.pk %}" class="btn btn-primary">Delete Article</a>
-        </p>
+
+        <div class="card-body">
+            <a href="{% url 'article_edit' article.pk %}" class="btn btn-warning">Edit Article</a>
+            <a href="{% url 'article_delete' article.pk %}" class="btn btn-danger">Delete Article</a>
+        </div>
 
         <p></p>
 
-        {% if article.get_previous_by_created_on %}
-            <p>
-                <a href="{{ article.get_previous_by_created_on.get_absolute_url }}" class="btn btn-primary">Next
+        <div class="card-body">
+            {% if article.get_previous_by_created_on %}
+                <a href="{{ article.get_previous_by_created_on.get_absolute_url }}" class="btn btn-link">Previous
                     Article</a>
-            </p>
-        {% endif %}
+            {% endif %}
+            {% if article.get_next_by_created_on %}
+                <a href="{{ article.get_next_by_created_on.get_absolute_url }}" class="btn btn-link">Next
+                    Article</a>
+            {% endif %}
+        </div>
 
     </div>
 

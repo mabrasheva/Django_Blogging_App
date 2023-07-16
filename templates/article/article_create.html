@@ -8,8 +8,8 @@
 
                 <form action="{% url 'article_create' %}" method="post">
 
-                    <h2 class="card-title h4">{{ form.title }}</h2>
-                    <p class="card-text">{{ form.text }}</p>
+                    <h2 class="card-title h4 rounded">{{ form.title }}</h2>
+                    <p class="card-text rounded">{{ form.text }}</p>
 
                     <button class="btn btn-primary">Create</button>
                     {% csrf_token %}

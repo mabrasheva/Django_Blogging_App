@@ -1,0 +1,17 @@
+<div class="card">
+        <ul class="list-group list-group">
+            <li class="list-group-item card-subtitle h5">Comments</li>
+
+            {% for comment in article.comment_set.all %}
+                <li class="list-group-item">
+                    <div class="small text-muted">Published date: {{ comment.created_on }}</div>
+                    {{ comment.user }}: {{ comment.comment_text }}
+                </li>
+
+            {% empty %}
+                <li class="list-group-item">No comments yet.</li>
+
+            {% endfor %}
+        </ul>
+</div>
+

@@ -1,9 +1,11 @@
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django_blogging_app.apps.article.forms import ArticleCreateForm
 from django_blogging_app.apps.article.models import Article
+from django_blogging_app.apps.common.forms import CommentCreateForm
+from django_blogging_app.apps.common.models import Comment
 
 
 class DisabledFormFieldsMixin:
@@ -52,6 +54,11 @@ class ArticleDetailsView(views.DetailView):
     model = Article
     template_name = 'article/article_details.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comment_form'] = CommentCreateForm
+        return context
+
 
 class ArticleUpdateView(LoginRequiredMixin, DisabledFormFieldsMixin, views.UpdateView):
     model = Article
@@ -68,3 +75,17 @@ class ArticleDeleteView(LoginRequiredMixin, DisabledFormFieldsMixin, views.Delet
     template_name = "article/article_delete.html"
     fields = "__all__"
     success_url = reverse_lazy('article_list')
+
+
+class ArticleCommentView(LoginRequiredMixin, views.CreateView):
+    model = Comment
+    template_name = "common/comment_create.html"
+    form_class = CommentCreateForm
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.article_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('article_details', kwargs={'pk': self.kwargs['pk']})
