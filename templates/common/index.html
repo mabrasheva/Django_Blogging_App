@@ -17,7 +17,7 @@
                                 <a href="{% url 'user_details' pk=featured_article.user.pk %}">{{ featured_article.user.username }}</a>
                                 {{ article.user.full_name }}</div>
                             <p class="card-text">{{ featured_article.text|truncatechars:50 }}</p>
-                            <a class="btn btn-link" href="{% url 'article_details' featured_article.pk %}">Read more
+                            <a class="btn btn-secondary" href="{% url 'article_details' featured_article.pk %}">Read more
                                 →</a>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                 </div>
                 {% if articles %}
                     <p>
-                        <a class="btn btn-link" href="{% url 'article_list' %}">Show all articles →</a>
+                        <a class="btn btn-primary" href="{% url 'article_list' %}">Show all articles →</a>
                     </p>
                 {% endif %}
 
