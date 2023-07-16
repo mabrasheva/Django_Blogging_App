@@ -19,11 +19,14 @@
         {% include 'common/comment_create.html' %}
         <p></p>
 
+        {% if request.user.is_staff or request.user == article.user %}
 
-        <div class="card-body">
-            <a href="{% url 'article_edit' article.pk %}" class="btn btn-warning">Edit Article</a>
-            <a href="{% url 'article_delete' article.pk %}" class="btn btn-danger">Delete Article</a>
-        </div>
+            <div class="card-body">
+                <a href="{% url 'article_edit' article.pk %}" class="btn btn-warning">Edit Article</a>
+                <a href="{% url 'article_delete' article.pk %}" class="btn btn-danger">Delete Article</a>
+            </div>
+            
+        {% endif %}
 
         <p></p>
 
