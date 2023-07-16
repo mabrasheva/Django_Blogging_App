@@ -36,17 +36,19 @@ class ListUsersView(LoginRequiredMixin, views.ListView):
 
 class UserUpdateView(LoginRequiredMixin, views.UpdateView):
     template_name = "user_profile/user_edit.html"
+    model = UserModel
+    fields = ["first_name", "last_name", "email", "profile_image"]
+
+    def get_success_url(self):
+        return reverse_lazy('user_details', kwargs={'pk': self.object.pk})
 
 
 class UserDetailsView(LoginRequiredMixin, views.DetailView):
     template_name = "user_profile/user_details.html"
     model = UserModel
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context["articles_count"] = self.request.user.article_set.all()
-    #     return context
-
 
 class UserDeleteView(LoginRequiredMixin, views.DeleteView):
     template_name = "user_profile/user_delete.html"
+    model = UserModel
+    success_url = reverse_lazy('index')

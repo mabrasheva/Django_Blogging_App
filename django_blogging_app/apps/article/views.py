@@ -65,7 +65,6 @@ class ArticleUpdateView(LoginRequiredMixin, DisabledFormFieldsMixin, views.Updat
     template_name = "article/article_edit.html"
     fields = ["title", "text"]
 
-    # disabled_fields = ("author",)
     def get_success_url(self):
         return reverse_lazy('article_details', kwargs={'pk': self.object.pk})
 

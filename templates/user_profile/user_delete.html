@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="container">
+
+        <div class="card">
+            <div class="card-body">
+
+                <form action="{% url 'user_delete' pk=object.pk %}" method="post">
+
+                    <p> Are you sure you want to delete user {{ object.username }}?</p>
+
+                    <button class="btn btn-danger">Delete</button>
+                    {% csrf_token %}
+
+                </form>
+                <p>
+                    <a href="{% url 'user_details' pk=object.pk %}" class="btn btn-primary">No, Return to profile
+                        details</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
