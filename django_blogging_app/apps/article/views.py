@@ -1,11 +1,24 @@
+from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from django_blogging_app.apps.article.forms import ArticleCreateForm
 from django_blogging_app.apps.article.models import Article
 from django_blogging_app.apps.common.forms import CommentCreateForm
 from django_blogging_app.apps.common.models import Comment
+
+UserModel = get_user_model()
+
+
+class ArticleDeleteMixin(UserPassesTestMixin):
+    model = Article
+    success_url = reverse_lazy('article_list')
+
+    def test_func(self):
+        article = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return article.user == self.request.user or self.request.user.is_superuser
 
 
 class DisabledFormFieldsMixin:
@@ -69,7 +82,7 @@ class ArticleUpdateView(LoginRequiredMixin, DisabledFormFieldsMixin, views.Updat
         return reverse_lazy('article_details', kwargs={'pk': self.object.pk})
 
 
-class ArticleDeleteView(LoginRequiredMixin, DisabledFormFieldsMixin, views.DeleteView):
+class ArticleDeleteView(LoginRequiredMixin, DisabledFormFieldsMixin, ArticleDeleteMixin, views.DeleteView):
     model = Article
     template_name = "article/article_delete.html"
     fields = "__all__"

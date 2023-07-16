@@ -6,10 +6,12 @@
                 class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
+
+                {% if request.user.is_superuser %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'users_list' %}">Blog users</a></li>
+                {% endif %}
+
                 {% if request.user.is_authenticated %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'users_list' %}">Modify users</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'user_details' pk=user.pk %}">Profile
                         ({{ request.user.username }})</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'user_logout' %}">Logout</a></li>
@@ -17,7 +19,12 @@
                     <li class="nav-item"><a class="nav-link" href="{% url 'user_login' %}">Login</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'user_register' %}">Register</a></li>
                 {% endif %}
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Blog</a></li>
+
+                {% if request.user.is_superuser %}
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'admin_panel' %}">Admin
+                        panel</a></li>
+                {% endif %}
+
             </ul>
         </div>
     </div>

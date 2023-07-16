@@ -1,5 +1,5 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import views as auth_views, login, get_user_model
 from django.urls import reverse_lazy
 from django.views import generic as views
@@ -7,6 +7,15 @@ from django.views import generic as views
 from django_blogging_app.apps.user_profile.forms import RegisterUserForm
 
 UserModel = get_user_model()
+
+
+class UserDeleteMixin(UserPassesTestMixin):
+    model = UserModel
+    success_url = reverse_lazy('user_list')
+
+    def test_func(self):
+        user = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return user == self.request.user or self.request.user.is_superuser
 
 
 class RegisterUserView(views.CreateView):
@@ -48,7 +57,7 @@ class UserDetailsView(LoginRequiredMixin, views.DetailView):
     model = UserModel
 
 
-class UserDeleteView(LoginRequiredMixin, views.DeleteView):
+class UserDeleteView(LoginRequiredMixin, UserDeleteMixin, views.DeleteView):
     template_name = "user_profile/user_delete.html"
     model = UserModel
     success_url = reverse_lazy('index')
