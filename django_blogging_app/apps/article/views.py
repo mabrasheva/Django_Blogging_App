@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from django_blogging_app.apps.article.forms import ArticleCreateForm, ArticleEditForm
 from django_blogging_app.apps.article.models import Article
+from django_blogging_app.apps.category.forms import CategoryFilterForm
 from django_blogging_app.apps.category.models import Category
 from django_blogging_app.apps.common.forms import CommentCreateForm
 from django_blogging_app.apps.common.models import Comment
@@ -62,14 +63,23 @@ class ArticleListView(views.ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+
         category_slug = self.request.GET.get('category')
         if category_slug:
             # If a category slug is provided, filter articles by the category
             queryset = queryset.filter(categories__slug=category_slug)
+
+        form = CategoryFilterForm(self.request.GET)
+        if form.is_valid() and form.cleaned_data['categories']:
+            # If a category is selected in the form, filter articles by the selected category
+            category = form.cleaned_data['categories']
+            queryset = queryset.filter(categories=category)
+
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['category_filter_form'] = CategoryFilterForm(self.request.GET)
         context['categories'] = Category.objects.all()  # Add all categories to the context
         return context
 
