@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_blogging_app.apps.article',
+    'django_blogging_app.apps.category',
     'django_blogging_app.apps.common',
     'django_blogging_app.apps.user_profile',
 ]

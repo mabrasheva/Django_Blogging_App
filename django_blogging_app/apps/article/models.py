@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 
+from django_blogging_app.apps.category.models import Category
+
 UserModel = get_user_model()
 
 
@@ -24,6 +26,7 @@ class Article(models.Model):
         UserModel,
         on_delete=models.CASCADE,
     )
+    categories = models.ManyToManyField(Category, blank=True)
 
     # ToDo
     # category
@@ -35,3 +38,6 @@ class Article(models.Model):
 
     def get_absolute_url(self):
         return reverse('article_details', args=[str(self.pk)])
+
+    def __str__(self):
+        return self.title

@@ -76,7 +76,7 @@ class ArticleDetailsView(views.DetailView):
 class ArticleUpdateView(LoginRequiredMixin, DisabledFormFieldsMixin, views.UpdateView):
     model = Article
     template_name = "article/article_edit.html"
-    fields = ["title", "text"]
+    fields = ["title", "text", "categories"]
 
     def get_success_url(self):
         return reverse_lazy('article_details', kwargs={'pk': self.object.pk})

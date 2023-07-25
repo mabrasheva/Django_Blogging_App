@@ -1,6 +1,7 @@
 from django import forms
 
 from django_blogging_app.apps.article.models import Article
+from django_blogging_app.apps.category.models import Category
 
 
 class ArticleBaseForm(forms.ModelForm):
@@ -20,4 +21,5 @@ class ArticleCreateForm(ArticleBaseForm):
             'text': forms.Textarea(
                 attrs={'placeholder': 'Article content', }
             ),
+            'categories': forms.CheckboxSelectMultiple()
         }
