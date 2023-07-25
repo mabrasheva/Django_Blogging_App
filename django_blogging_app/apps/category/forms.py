@@ -7,5 +7,4 @@ class CategoryFilterForm(forms.Form):
         queryset=Category.objects.all(),
         empty_label='All',
         required=False,
-        # widget=forms.Select(attrs={'id': 'category'}),
     )
