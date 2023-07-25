@@ -23,3 +23,18 @@ class ArticleCreateForm(ArticleBaseForm):
             ),
             'categories': forms.CheckboxSelectMultiple()
         }
+
+
+class ArticleEditForm(ArticleBaseForm):
+    class Meta:
+        model = Article
+        exclude = ["user"]
+        widgets = {
+            'title': forms.TextInput(
+                attrs={'placeholder': 'Title', },
+            ),
+            'text': forms.Textarea(
+                attrs={'placeholder': 'Article content', }
+            ),
+            'categories': forms.CheckboxSelectMultiple()
+        }

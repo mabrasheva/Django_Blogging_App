@@ -79,7 +79,9 @@
                             {% for category in categories %}
 
                                 <ul class="list-unstyled mb-0">
-                                    <li><a href="#!">{{ category.name }}</a></li>
+                                    <li>
+                                        <a href="{% url 'article_list' %}?category={{ category.slug }}">{{ category.name }}</a>
+                                    </li>
                                 </ul>
 
                             {% endfor %}

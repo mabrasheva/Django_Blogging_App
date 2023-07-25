@@ -4,8 +4,9 @@ from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from django_blogging_app.apps.article.forms import ArticleCreateForm
+from django_blogging_app.apps.article.forms import ArticleCreateForm, ArticleEditForm
 from django_blogging_app.apps.article.models import Article
+from django_blogging_app.apps.category.models import Category
 from django_blogging_app.apps.common.forms import CommentCreateForm
 from django_blogging_app.apps.common.models import Comment
 
@@ -34,9 +35,6 @@ class DisabledFormFieldsMixin:
         return form
 
 
-# class ArticleForm(forms.ModelForm):
-#     pass
-
 # Forms:
 # 1. Auto created based on `fields` (default)
 # 2. `form_class` - return class
@@ -62,6 +60,19 @@ class ArticleListView(views.ListView):
     ordering = ['-created_on']
     paginate_by = 6
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        category_slug = self.request.GET.get('category')
+        if category_slug:
+            # If a category slug is provided, filter articles by the category
+            queryset = queryset.filter(categories__slug=category_slug)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()  # Add all categories to the context
+        return context
+
 
 class ArticleDetailsView(views.DetailView):
     model = Article
@@ -76,7 +87,9 @@ class ArticleDetailsView(views.DetailView):
 class ArticleUpdateView(LoginRequiredMixin, DisabledFormFieldsMixin, views.UpdateView):
     model = Article
     template_name = "article/article_edit.html"
-    fields = ["title", "text", "categories"]
+    form_class = ArticleEditForm
+
+    # fields = ["title", "text", "categories"]
 
     def get_success_url(self):
         return reverse_lazy('article_details', kwargs={'pk': self.object.pk})
