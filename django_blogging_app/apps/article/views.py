@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models import Q
 
 from django_blogging_app.apps.article.forms import ArticleCreateForm, ArticleEditForm
 from django_blogging_app.apps.article.models import Article
@@ -75,12 +76,25 @@ class ArticleListView(views.ListView):
             category = form.cleaned_data['categories']
             queryset = queryset.filter(categories=category)
 
+        query = self.request.GET.get('q')
+        if query:
+            # If a search query is provided, filter articles by title, text, or author containing the query
+            queryset = self.model.objects.filter(
+                Q(title__icontains=query) |
+                Q(text__icontains=query) |
+                Q(user__username__icontains=query)
+            ).distinct()
+        else:
+            # If no search query is provided, show all articles
+            queryset = self.model.objects.all()
+
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category_filter_form'] = CategoryFilterForm(self.request.GET)
         context['categories'] = Category.objects.all()  # Add all categories to the context
+        context['search_query'] = self.request.GET.get('q', '')
         return context
 
 

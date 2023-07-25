@@ -11,3 +11,9 @@ class RegisterUserForm(auth_forms.UserCreationForm):
         consent = forms.BooleanField(
             label="I accept the Terms and Conditions "
         )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields.values():
+            field.help_text = ""

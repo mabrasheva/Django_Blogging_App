@@ -1,0 +1,11 @@
+<div class="card mb-4">
+    <div class="card-header">Search</div>
+    <div class="card-body">
+        <form method="GET" action="{% url 'article_list' %}" class="input-group">
+            <input class="form-control" type="text" name="q" placeholder="..."
+                   aria-label="Enter search term..." aria-describedby="button-search"
+                   value="{{ search_query }}">
+            <button class="btn btn-primary" id="button-search" type="submit">Search</button>
+        </form>
+    </div>
+</div>

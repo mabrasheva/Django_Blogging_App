@@ -2,7 +2,7 @@
 
 <form method="post" action="{% url 'article_comment' pk=article.pk %}">
 
-    <div class="card rounded">
+    <div class="card rounded form-group">
         {{ comment_form.comment_text|placeholder:"Add comment..." }}
     </div>
 

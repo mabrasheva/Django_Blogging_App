@@ -7,8 +7,9 @@
 
                 <form action="{% url 'article_edit' article.pk %}" method="post">
 
-                    <h2 class="card-title h4">{{ form.title }}</h2>
-                    <p class="card-text">{{ form.text }}</p>
+                    <div class="form-group">{{ form.title }}</div>
+                    <div class="form-group">{{ form.text }}</div>
+
                     Category:
                     <p>{{ form.categories }}</p>
 
