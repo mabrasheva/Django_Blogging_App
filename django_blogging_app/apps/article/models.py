@@ -29,7 +29,6 @@ class Article(models.Model):
     categories = models.ManyToManyField(Category, blank=True)
 
     # ToDo
-    # category
     # tags
     # slug
 

@@ -18,6 +18,11 @@
                         <p class="card-text">Email: {{ object.email }}</p>
 
                         <p class="card-text">Created articles count: {{ object.article_set.all.count }}</p>
+                        <p>Go to {{ object.username }} <a
+                                href="{% url 'article_list' %}?user={{ object.pk }}">articles</a>
+                        </p>
+
+
                         <p class="card-text">Comments count: {{ object.comment_set.all.count }}</p>
 
                         {% if request.user.is_superuser or request.user == object %}

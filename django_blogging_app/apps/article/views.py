@@ -88,13 +88,18 @@ class ArticleListView(views.ListView):
             category = form.cleaned_data['categories']
             queryset = queryset.filter(categories=category)
 
+        user_id = self.request.GET.get('user')
+        if user_id:
+            # If a user ID is provided in the URL query parameters, filter articles by the user
+            user = get_object_or_404(UserModel, pk=user_id)
+            queryset = queryset.filter(user=user)
+
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category_filter_form'] = CategoryFilterForm(self.request.GET)
         context['categories'] = Category.objects.all()  # Add all categories to the context
-        # context['search_query'] = self.request.GET.get('q', '')
         return context
 
 
