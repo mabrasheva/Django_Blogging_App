@@ -1,3 +1,5 @@
+{% load static %}
+
 <p>Average Rating: {{ average_rating }}</p>
 
 {% if request.user.is_authenticated %}
@@ -5,14 +7,24 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-lg-8">
-                <p>Rate the Article</p>
-                <form method="post" action="{% url 'article_rating' pk=article.pk %}">
-                    {{ rating_form }}
+                <h3>Rate the Article</h3>
+                <form method="post" action="{% url 'article_rating' pk=article.pk %}" id="ratingForm">
                     {% csrf_token %}
-                    <button type="submit">Submit Rating</button>
+                    <input type="hidden" name="rating_value" id="ratingValue" value="{{ rating_form.rating.value }}">
+                    <div class="rating">
+                        <span class="star" data-star-value="1">&#9733;</span>
+                        <span class="star" data-star-value="2">&#9733;</span>
+                        <span class="star" data-star-value="3">&#9733;</span>
+                        <span class="star" data-star-value="4">&#9733;</span>
+                        <span class="star" data-star-value="5">&#9733;</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Rating</button>
                 </form>
             </div>
         </div>
     </div>
+
+    <!-- Include the rating.js file -->
+    <script src="{% static 'js/rating.js' %}"></script>
 
 {% endif %}
