@@ -61,3 +61,6 @@ class UserDeleteView(LoginRequiredMixin, UserDeleteMixin, views.DeleteView):
     template_name = "user_profile/user_delete.html"
     model = UserModel
     success_url = reverse_lazy('index')
+
+# ToDo user change password
+# ToDo signal for sending mail when a user is registered
