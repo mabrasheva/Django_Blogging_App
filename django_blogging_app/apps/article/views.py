@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
@@ -9,8 +10,8 @@ from django_blogging_app.apps.article.forms import ArticleCreateForm, ArticleEdi
 from django_blogging_app.apps.article.models import Article
 from django_blogging_app.apps.category.forms import CategoryFilterForm
 from django_blogging_app.apps.category.models import Category
-from django_blogging_app.apps.common.forms import CommentCreateForm
-from django_blogging_app.apps.common.models import Comment
+from django_blogging_app.apps.common.forms import CommentCreateForm, RatingForm
+from django_blogging_app.apps.common.models import Comment, Rating
 
 UserModel = get_user_model()
 
@@ -109,7 +110,11 @@ class ArticleDetailsView(views.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        article = self.get_object()
+
         context['comment_form'] = CommentCreateForm
+        context['average_rating'] = article.average_rating
+        context['rating_form'] = RatingForm()
         return context
 
 
@@ -142,6 +147,32 @@ class ArticleCommentView(LoginRequiredMixin, views.CreateView):
         form.instance.user = self.request.user
         form.instance.article_id = self.kwargs['pk']
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('article_details', kwargs={'pk': self.kwargs['pk']})
+
+
+class ArticleRatingView(LoginRequiredMixin, views.CreateView):
+    model = Rating
+    template_name = 'article/article_rating.html'
+    form_class = RatingForm
+
+    def form_valid(self, form):
+        user = self.request.user
+        article = get_object_or_404(Article, pk=self.kwargs['pk'])
+
+        # Check if the user has already rated the article
+        try:
+            rating = Rating.objects.get(article=article, user=user)
+            rating.rating_value = form.cleaned_data['rating_value']  # Update the rating value
+            rating.save()
+        except Rating.DoesNotExist:
+            # If the user has not rated the article before, create a new rating entry
+            form.instance.user = user
+            form.instance.article = article
+            return super().form_valid(form)
+
+        return HttpResponseRedirect(reverse_lazy('article_details', kwargs={'pk': self.kwargs['pk']}))
 
     def get_success_url(self):
         return reverse_lazy('article_details', kwargs={'pk': self.kwargs['pk']})

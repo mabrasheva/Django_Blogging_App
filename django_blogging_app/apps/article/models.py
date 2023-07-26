@@ -38,3 +38,11 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def average_rating(self):
+        ratings = self.rating_set.all()
+        if ratings:
+            total_ratings = sum(rating.rating_value for rating in ratings)
+            return int(total_ratings / len(ratings))
+        return 0

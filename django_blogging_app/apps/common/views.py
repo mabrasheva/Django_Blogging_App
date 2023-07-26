@@ -41,5 +41,4 @@ class IndexView(views.TemplateView):
 
         context['search_query'] = self.request.GET.get('q', '')
 
-
         return context

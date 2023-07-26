@@ -1,0 +1,15 @@
+<p>Average Rating: {{ average_rating }}</p>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-8">
+            <p>Rate the Article</p>
+            <form method="post" action="{% url 'article_rating' pk=article.pk %}">
+                {{ rating_form }}
+                {% csrf_token %}
+                <button type="submit">Submit Rating</button>
+            </form>
+        </div>
+    </div>
+</div>
+
