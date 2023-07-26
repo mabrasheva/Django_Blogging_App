@@ -14,3 +14,5 @@ class UserModelAdmin(admin.ModelAdmin):
         if 'password' in form.data and form.data['password']:
             obj.set_password(form.data['password'])
         obj.save()
+
+# ToDo: Add 5 customized options: filters, list display, ordering.

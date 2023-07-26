@@ -143,3 +143,5 @@ LOGIN_REDIRECT_URL = reverse_lazy('index')
 LOGOUT_REDIRECT_URL = reverse_lazy('index')
 
 AUTH_USER_MODEL = 'user_profile.BlogUser'
+
+# ToDo env file

@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.views import generic as views
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
@@ -15,7 +15,7 @@ from django_blogging_app.apps.common.models import Comment
 UserModel = get_user_model()
 
 
-class ArticleDeleteMixin(UserPassesTestMixin):
+class ArticleActionsAuthorizedUserMixin(UserPassesTestMixin):
     model = Article
     success_url = reverse_lazy('article_list')
 
@@ -113,7 +113,8 @@ class ArticleDetailsView(views.DetailView):
         return context
 
 
-class ArticleUpdateView(LoginRequiredMixin, DisabledFormFieldsMixin, views.UpdateView):
+class ArticleUpdateView(LoginRequiredMixin, DisabledFormFieldsMixin, ArticleActionsAuthorizedUserMixin,
+                        views.UpdateView):
     model = Article
     template_name = "article/article_edit.html"
     form_class = ArticleEditForm
@@ -124,7 +125,8 @@ class ArticleUpdateView(LoginRequiredMixin, DisabledFormFieldsMixin, views.Updat
         return reverse_lazy('article_details', kwargs={'pk': self.object.pk})
 
 
-class ArticleDeleteView(LoginRequiredMixin, DisabledFormFieldsMixin, ArticleDeleteMixin, views.DeleteView):
+class ArticleDeleteView(LoginRequiredMixin, DisabledFormFieldsMixin, ArticleActionsAuthorizedUserMixin,
+                        views.DeleteView):
     model = Article
     template_name = "article/article_delete.html"
     fields = "__all__"
