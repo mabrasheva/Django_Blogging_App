@@ -25,12 +25,19 @@
 
                         <p class="card-text">Comments count: {{ object.comment_set.all.count }}</p>
 
-                        {% if request.user.is_superuser or request.user == object %}
-                            <p>
+                        <p>
+                            {% if request.user.is_superuser or request.user == object %}
+
                                 <a href="{% url 'user_edit' object.pk %}" class="btn btn-warning">Edit user</a>
                                 <a href="{% url 'user_delete' object.pk %}" class="btn btn-danger">Delete user</a>
-                            </p>
-                        {% endif %}
+
+                            {% endif %}
+
+                            {% if request.user == object %}
+                                <a href="{% url 'user_change_password' object.pk %}" class="btn btn-danger">Change
+                                    password</a>
+                            {% endif %}
+                        </p>
 
                     </div>
                 </div>

@@ -7,12 +7,9 @@
             <div class="card-body">
 
                 <form action="{% url 'user_edit' pk=object.pk %}" method="post">
-
                     {{ form.as_p }}
-
                     <button class="btn btn-primary">Save</button>
                     {% csrf_token %}
-
                 </form>
 
             </div>

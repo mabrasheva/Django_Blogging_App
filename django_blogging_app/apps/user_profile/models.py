@@ -31,9 +31,6 @@ class BlogUser(auth_models.AbstractUser):
         blank=True,
     )
 
-    # user = models.OneToOneField(
-    #     UserModel
-    # )
     @property
     def full_name(self):
         if self.first_name and self.last_name:
