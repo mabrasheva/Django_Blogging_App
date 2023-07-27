@@ -11,8 +11,8 @@ UserModel = get_user_model()
 @receiver(post_save, sender=UserModel)
 def send_registration_email(sender, instance, created, **kwargs):
     if created:
-        subject = 'Welcome to Our App!'
-        message = f'Hi {instance.username},\n\nWelcome to our app. Thank you for registering!'
+        subject = 'Welcome to blog site!'
+        message = f'Hi, {instance.username},\n\nWelcome to our app. Thank you for registering!'
         from_email = settings.EMAIL_HOST_USER
         recipient_list = [instance.email]
 
