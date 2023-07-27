@@ -45,4 +45,4 @@ class Article(models.Model):
         if ratings:
             total_ratings = sum(rating.rating_value for rating in ratings)
             return int(total_ratings / len(ratings))
-        return "Not rated yet"
+        return 0

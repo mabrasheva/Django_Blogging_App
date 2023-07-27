@@ -9,7 +9,14 @@
                 <div class="small text-muted">Author:
                     <a href="{% url 'user_details' pk=article.user.pk %}">{{ article.user.username }}</a>
                     {{ article.user.full_name }}</div>
-                <div class="small text-muted">Article rating: {{ average_rating }}</div>
+
+                <div class="small text-muted">Article rating:
+                    {% if article.average_rating == 0 %}
+                        Not rated yet
+                    {% else %}
+                        {{ article.average_rating }}
+                    {% endif %}
+                </div>
 
                 {% if article.categories.exists %}
                     <div class="small text-muted">Categories:
