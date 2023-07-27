@@ -1,3 +1,5 @@
+import os
+
 from django.urls import reverse_lazy
 
 """
@@ -21,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5q^cf865=2pn)_=evb@-8d8g%385*ur2g9@ofg3yeyf$#bq*po'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,7 +43,7 @@ INSTALLED_APPS = [
     'django_blogging_app.apps.article',
     'django_blogging_app.apps.category',
     'django_blogging_app.apps.common',
-    'django_blogging_app.apps.user_profile',
+    'django_blogging_app.apps.user_profile.apps.UserProfileConfig',
 ]
 
 MIDDLEWARE = [
@@ -88,11 +90,11 @@ WSGI_APPLICATION = 'django_blogging_app.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "django_blogging_app_db",
-        "USER": "postgres-user",
-        "PASSWORD": "password",
+        "NAME": os.getenv('DB_NAME', 'django_blogging_app_db'),
+        "USER": os.getenv('DB_USER', 'postgres-user'),
+        "PASSWORD": os.getenv('DB_PASSWORD', 'password'),
         "HOST": "127.0.0.1",
-        "PORT": "5432",
+        "PORT": os.getenv('DB_PORT', None),
     }
 }
 
@@ -146,6 +148,13 @@ LOGIN_REDIRECT_URL = reverse_lazy('index')
 LOGOUT_REDIRECT_URL = reverse_lazy('index')
 
 AUTH_USER_MODEL = 'user_profile.BlogUser'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 # ToDo: env file
 # ToDo: Update README.md
