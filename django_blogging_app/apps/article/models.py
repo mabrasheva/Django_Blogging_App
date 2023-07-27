@@ -28,8 +28,6 @@ class Article(models.Model):
     )
     categories = models.ManyToManyField(Category, blank=True)
 
-    # ToDo tags slug
-
     class Meta:
         ordering = ['created_on']
 

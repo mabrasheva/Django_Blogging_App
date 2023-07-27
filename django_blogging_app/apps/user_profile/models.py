@@ -26,7 +26,8 @@ class BlogUser(auth_models.AbstractUser):
     email = models.EmailField(
         unique=True,
     )
-    profile_image = models.URLField(
+    profile_image = models.ImageField(
+        upload_to='profile_image/',
         null=True,
         blank=True,
     )

@@ -49,7 +49,7 @@
 
                         {% if object.profile_image %}
                             <div class="card-img-top">
-                                <img src="{{ object.profile_image }}" alt="user profile image">
+                                <img width="320" src="/media/{{ object.profile_image }}" alt="user profile image">
                             </div>
                         {% else %}
                             <img class="card-img-top" src="{% static 'images/person.png' %}" alt="user profile image">

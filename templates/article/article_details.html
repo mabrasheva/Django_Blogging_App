@@ -44,24 +44,24 @@
 
         {% if request.user.is_staff or request.user == article.user %}
 
-            <div class="card-body">
+            <div>
                 <a href="{% url 'article_edit' article.pk %}" class="btn btn-warning">Edit Article</a>
                 <a href="{% url 'article_delete' article.pk %}" class="btn btn-danger">Delete Article</a>
             </div>
 
         {% endif %}
 
-    </div>
+        <div>
+            {% if article.get_previous_by_created_on %}
+                <a href="{{ article.get_previous_by_created_on.get_absolute_url }}" class="btn btn-link">Previous
+                    Article</a>
+            {% endif %}
+            {% if article.get_next_by_created_on %}
+                <a href="{{ article.get_next_by_created_on.get_absolute_url }}" class="btn btn-link">Next
+                    Article</a>
+            {% endif %}
+        </div>
 
-    <div class="card-body">
-        {% if article.get_previous_by_created_on %}
-            <a href="{{ article.get_previous_by_created_on.get_absolute_url }}" class="btn btn-link">Previous
-                Article</a>
-        {% endif %}
-        {% if article.get_next_by_created_on %}
-            <a href="{{ article.get_next_by_created_on.get_absolute_url }}" class="btn btn-link">Next
-                Article</a>
-        {% endif %}
     </div>
 
 {% endblock %}
