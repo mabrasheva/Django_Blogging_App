@@ -1,26 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="container">
-
         <div class="card">
-            <div class="card-body">
+            <div class="card-header">
+
                 <h2 class="card-title h2">{{ article.title }}</h2>
                 <div class="small text-muted">Published date: {{ article.created_on }}</div>
                 <div class="small text-muted">Author:
                     <a href="{% url 'user_details' pk=article.user.pk %}">{{ article.user.username }}</a>
                     {{ article.user.full_name }}</div>
+                <div class="small text-muted">Article rating: {{ average_rating }}</div>
+
                 {% if article.categories.exists %}
                     <div class="small text-muted">Categories:
                         {{ article.categories.all|join:", " }}
                     </div>
                 {% endif %}
 
-                <p></p>
-                {% include 'article/article_rating.html' %}
-                <p></p>
+            </div>
 
+            <div class="card-body">
                 <p class="card-text">{{ article.text }}</p>
             </div>
+
+            <div class="card-header">
+                {% include 'article/article_rating.html' %}
+            </div>
+
         </div>
 
         <p></p>
@@ -38,19 +44,17 @@
 
         {% endif %}
 
-        <p></p>
+    </div>
 
-        <div class="card-body">
-            {% if article.get_previous_by_created_on %}
-                <a href="{{ article.get_previous_by_created_on.get_absolute_url }}" class="btn btn-link">Previous
-                    Article</a>
-            {% endif %}
-            {% if article.get_next_by_created_on %}
-                <a href="{{ article.get_next_by_created_on.get_absolute_url }}" class="btn btn-link">Next
-                    Article</a>
-            {% endif %}
-        </div>
-
+    <div class="card-body">
+        {% if article.get_previous_by_created_on %}
+            <a href="{{ article.get_previous_by_created_on.get_absolute_url }}" class="btn btn-link">Previous
+                Article</a>
+        {% endif %}
+        {% if article.get_next_by_created_on %}
+            <a href="{{ article.get_next_by_created_on.get_absolute_url }}" class="btn btn-link">Next
+                Article</a>
+        {% endif %}
     </div>
 
 {% endblock %}
