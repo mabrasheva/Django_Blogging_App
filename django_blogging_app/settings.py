@@ -148,7 +148,7 @@ LOGOUT_REDIRECT_URL = reverse_lazy('index')
 AUTH_USER_MODEL = 'user_profile.BlogUser'
 
 # ToDo: env file
-# ToDo: Write README.md
+# ToDo: Update README.md
 # ToDo: Security (prevent SQL injection, XSS, CSRF, parameter tampering, etc.) – 0…5
 # ToDo: OPTIONAL: Write tests (Unit & Integration) for your views/models/forms - at least 10 tests
 # ToDo: OPTIONAL: Writing asynchronous view/s somewhere in the project
