@@ -7,6 +7,9 @@ UserModel = get_user_model()
 @admin.register(UserModel)
 class UserModelAdmin(admin.ModelAdmin):
     list_display = ("id", "username", "email")
+    list_filter = ['is_superuser', 'is_staff', 'groups']
+    ordering = ['username']
+    search_fields = ['username']
 
     # Customizing the save_model method to handle password hashing
     def save_model(self, request, obj, form, change):

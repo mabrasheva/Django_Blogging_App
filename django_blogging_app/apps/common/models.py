@@ -46,3 +46,6 @@ class Rating(models.Model):
     class Meta:
         # Every user can rate an article only once
         unique_together = ('user', 'article',)
+
+    def __str__(self):
+        return f"Rating for {self.article} by {self.user} - {self.rating_value} stars"
