@@ -76,4 +76,4 @@ class UserChangePasswordView(LoginRequiredMixin, UserChangePasswordMixin, auth_v
     template_name = 'user_profile/user_change_password.html'
     success_url = reverse_lazy('user_change_password_done')
 
-# ToDo signal for sending mail when a user is registered
+# ToDo edit signal for sending mail when a user is registered to use html template
