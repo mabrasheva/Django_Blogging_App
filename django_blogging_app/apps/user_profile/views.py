@@ -76,5 +76,4 @@ class UserChangePasswordView(LoginRequiredMixin, UserChangePasswordMixin, auth_v
     template_name = 'user_profile/user_change_password.html'
     success_url = reverse_lazy('user_change_password_done')
 
-# ToDo user change profile image from url to upload file
 # ToDo signal for sending mail when a user is registered
