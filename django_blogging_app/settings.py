@@ -40,9 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'django_blogging_app.apps.article',
-    'django_blogging_app.apps.category',
-    'django_blogging_app.apps.common',
+    'django_blogging_app.apps.article.apps.ArticleConfig',
+    'django_blogging_app.apps.category.apps.CategoryConfig',
+    'django_blogging_app.apps.common.apps.CommonConfig',
     'django_blogging_app.apps.user_profile.apps.UserProfileConfig',
 ]
 
@@ -90,13 +90,24 @@ WSGI_APPLICATION = 'django_blogging_app.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv('DB_NAME', 'django_blogging_app_db'),
-        "USER": os.getenv('DB_USER', 'postgres-user'),
-        "PASSWORD": os.getenv('DB_PASSWORD', 'password'),
+        "NAME": "django_blogging_app_db",
+        "USER": "postgres-user",
+        "PASSWORD": "password",
         "HOST": "127.0.0.1",
-        "PORT": os.getenv('DB_PORT', None),
+        "PORT": "5432",
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": os.getenv('DB_NAME', 'django_blogging_app_db'),
+#         "USER": os.getenv('DB_USER', 'postgres-user'),
+#         "PASSWORD": os.getenv('DB_PASSWORD', 'password'),
+#         "HOST": "127.0.0.1",
+#         "PORT": os.getenv('DB_PORT', "5432"),
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

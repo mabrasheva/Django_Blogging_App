@@ -75,5 +75,3 @@ class UserDeleteView(LoginRequiredMixin, UserDeleteMixin, views.DeleteView):
 class UserChangePasswordView(LoginRequiredMixin, UserChangePasswordMixin, auth_views.PasswordChangeView):
     template_name = 'user_profile/user_change_password.html'
     success_url = reverse_lazy('user_change_password_done')
-
-# ToDo edit signal for sending mail when a user is registered to use html template
