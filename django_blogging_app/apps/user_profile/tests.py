@@ -1,3 +1,8 @@
 from django.test import TestCase
 
-# Create your tests here.
+class LoginUserViewTests(TestCase):
+    def test_login(self):
+        pass
+
+    def test_second(self):
+        pass
