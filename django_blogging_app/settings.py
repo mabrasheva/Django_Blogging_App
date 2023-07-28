@@ -90,24 +90,13 @@ WSGI_APPLICATION = 'django_blogging_app.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "django_blogging_app_db",
-        "USER": "postgres-user",
-        "PASSWORD": "password",
+        "NAME": os.getenv('DB_NAME', 'django_blogging_app_db'),
+        "USER": os.getenv('DB_USER', 'postgres-user'),
+        "PASSWORD": os.getenv('DB_PASSWORD', 'password'),
         "HOST": "127.0.0.1",
-        "PORT": "5432",
+        "PORT": os.getenv('DB_PORT', "5432"),
     }
 }
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": os.getenv('DB_NAME', 'django_blogging_app_db'),
-#         "USER": os.getenv('DB_USER', 'postgres-user'),
-#         "PASSWORD": os.getenv('DB_PASSWORD', 'password'),
-#         "HOST": "127.0.0.1",
-#         "PORT": os.getenv('DB_PORT', "5432"),
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -169,8 +158,6 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 # ToDo: env file
 # ToDo: Update README.md
-# ToDo: Security (prevent SQL injection, XSS, CSRF, parameter tampering, etc.) – 0…5
-# ToDo: OPTIONAL: Write tests (Unit & Integration) for your views/models/forms - at least 10 tests
 # ToDo: OPTIONAL: Writing asynchronous view/s somewhere in the project
 # ToDo: OPTIONAL: Extend the Django project with REST Capabilities
 # ToDo: OPTIONAL: Host the application in a cloud environment
