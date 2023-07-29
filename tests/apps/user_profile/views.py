@@ -77,5 +77,3 @@ class ListUsersViewTests(BaseUserTestCase):
 
         # Assert - Check the response status code
         self.assertEqual(302, response.status_code)
-
-# ToDo: tests for  UserUpdateView, UserDetailsView, UserDeleteView, and UserChangePasswordView
