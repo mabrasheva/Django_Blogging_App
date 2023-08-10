@@ -90,8 +90,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Screenshots
 
-![Screenshot 1](link-to-screenshot-1)
-![Screenshot 2](link-to-screenshot-2)
+![screenshot_1.png](screenshot_1.png)
+![screenshot_2.png](screenshot_2.png)
+![screenshot_3.png](screenshot_3.png)
 
 ## Project Status
 
