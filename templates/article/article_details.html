@@ -38,9 +38,11 @@
 
         <p></p>
         {% include 'common/comment_list.html' %}
-        <p></p>
-        {% include 'common/comment_create.html' %}
-        <p></p>
+        {% if request.user.is_authenticated %}
+            <p></p>
+            {% include 'common/comment_create.html' %}
+            <p></p>
+        {% endif %}
 
         {% if request.user.is_staff or request.user == article.user %}
 
