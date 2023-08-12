@@ -22,7 +22,7 @@ class ArticleActionsAuthorizedUserMixin(UserPassesTestMixin):
 
     def test_func(self):
         article = get_object_or_404(self.model, pk=self.kwargs['pk'])
-        return article.user == self.request.user or self.request.user.is_superuser
+        return article.user == self.request.user or self.request.user.is_staff or self.request.user.is_superuser
 
 
 class DisabledFormFieldsMixin:
